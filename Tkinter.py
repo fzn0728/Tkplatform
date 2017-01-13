@@ -14,7 +14,7 @@ import urllib
 import json
 import pandas as pd
 import numpy as np
-
+pd.options.mode.chained_assignment = None
 
 
 LARGE_FONT = ("Verdana", 12)
@@ -29,7 +29,7 @@ a = f.add_subplot(111)
 def animate(i):
 	dataLink = 'https://btc-e.com/api/3/trades/btc_usd?limit=2000'
 	data = urllib.request.urlopen(dataLink)
-	data = data.readall().decode("utf-8")
+	data = data.read().decode("utf-8")
 	data = json.loads(data)
 
 	data = data["btc_usd"]
@@ -45,7 +45,7 @@ def animate(i):
 	sellDates = (sells["datestamp"]).tolist()
 
 	a.clear()
-	a.plot_date(buyDates, buy["price"])
+	a.plot_date(buyDates, buys["price"])
 	a.plot_date(sellDates, sells["price"])
 
 
@@ -90,7 +90,7 @@ class StartPage(tk.Frame):
 		label = tk.Label(self, text = "ALPHA Bitcoin trading application", font = LARGE_FONT)
 		label.pack(pady = 10, padx = 10)
 
-		button1 = ttk.Button(self, text = "Agree", command = lambda: controller.show_frame(BTCe_page))
+		button1 = ttk.Button(self, text = "Agree", command = lambda: controller.show_frame(PageOne))
 		button1.pack()
 
 		button2 = ttk.Button(self, text = "Disagree", command=quit)
@@ -107,7 +107,7 @@ class PageOne(tk.Frame):
 		button1 = ttk.Button(self, text = "Back to Home", command = lambda: controller.show_frame(StartPage))
 		button1.pack()
 
-		button2 = ttk.Button(self, text = "Page Two", command = lambda: controller.show_frame(PageTwo))
+		button2 = ttk.Button(self, text = "Page Two", command = lambda: controller.show_frame(BTCe_page))
 		button2.pack()
 
 

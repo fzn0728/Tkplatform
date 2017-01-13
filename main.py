@@ -134,4 +134,5 @@ class PageThree(tk.Frame):
         
 
 app = SeaofBTCapp()
+app.geometry("1280x720")
 app.mainloop()
